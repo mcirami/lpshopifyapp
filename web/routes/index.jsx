@@ -1,22 +1,26 @@
 import { useState, useCallback, useEffect } from "react";
 import { useFindFirst, useQuery } from "@gadgetinc/react";
 import {
-    Card,
     Layout,
     Page,
     Spinner,
     Text,
-    AccountConnection,
     List,
     Button,
     Link,
-    Divider,
     InlineStack,
     BlockStack,
     MediaCard,
     Icon,
+    Grid,
+    Card,
+    Box,
 } from "@shopify/polaris";
-import { StoreIcon, IconsIcon } from "@shopify/polaris-icons";
+import {
+    StoreIcon,
+    IconsIcon,
+    DomainLandingPageIcon,
+} from "@shopify/polaris-icons";
 import { api } from "../api";
 import { useAppBridge } from "@shopify/app-bridge-react";
 
@@ -121,7 +125,7 @@ export default function Index() {
 
     function CardContent() {
         return (
-            <>
+            <div style={{ padding: "20px" }}>
                 {connected ? (
                     <InlineStack gap="400">
                         <Text as="h4" variant="headingMd">
@@ -175,7 +179,7 @@ export default function Index() {
                         />
                         <Placeholder
                             text="Build your brand by sharing your latest content and events, grow your subscriber list, and more."
-                            icon={IconsIcon}
+                            icon={DomainLandingPageIcon}
                         />
                         <Placeholder
                             text="Create your own style by uploading your own icons and images to display."
@@ -200,26 +204,36 @@ export default function Index() {
                         </Text>
                     </InlineStack>
                 )}
-            </>
+            </div>
         );
     }
 
     return (
         <Page title="LinkPro">
-            <Layout>
-                <Layout.Section>
-                    <MediaCard description={<CardContent />}>
+            <Box background="bg-surface" borderRadius="200">
+                <Grid columns={{ xs: 1, sm: 1, md: 3, lg: 3, xl: 3 }}>
+                    <Grid.Cell
+                        columnSpan={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }}
+                    >
                         <img
                             style={{
                                 width: "100%",
                                 height: "100%",
+                                objectFit: "fill",
+                                borderTopLeftRadius: "8px",
+                                borderBottomLeftRadius: "8px",
                             }}
                             src="https://lp-production-images.s3.us-east-2.amazonaws.com/shopify-image-final.png"
                             alt="LinkPro example"
                         />
-                    </MediaCard>
-                </Layout.Section>
-            </Layout>
+                    </Grid.Cell>
+                    <Grid.Cell
+                        columnSpan={{ xs: 1, sm: 1, md: 2, lg: 2, xl: 2 }}
+                    >
+                        <CardContent />
+                    </Grid.Cell>
+                </Grid>
+            </Box>
         </Page>
     );
 }
